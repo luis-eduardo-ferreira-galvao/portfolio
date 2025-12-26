@@ -22,7 +22,7 @@ const dateStr = project.data.date.toLocaleDateString('pt-BR', {
 
 <Layout title={`${project.data.title} | Case Study`} description={project.data.description}>
 	<div class="max-w-3xl mx-auto">
-		<a href="/projetos" class="inline-flex items-center text-sm text-slate-400 hover:text-white mb-6 transition-colors">
+		<a href={`${import.meta.env.BASE_URL}projetos`} class="inline-flex items-center text-sm text-slate-400 hover:text-white mb-6 transition-colors">
 			← Voltar para Projetos
 		</a>
 
