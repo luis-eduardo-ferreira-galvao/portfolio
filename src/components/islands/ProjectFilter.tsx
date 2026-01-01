@@ -7,6 +7,7 @@ interface Project {
         description: string;
         tags: string[];
         date: Date;
+        heroImage?: string;
     };
 }
 
@@ -35,17 +36,29 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
         });
     }, [projects, search, selectedTag]);
 
+    // Helper to process image path
+    const getImagePath = (path?: string) => {
+        if (!path) return null;
+        if (path.startsWith('public/')) {
+            return path.replace('public/', '/');
+        }
+        if (path.startsWith('/public/')) {
+            return path.replace('/public/', '/');
+        }
+        return path;
+    };
+
     return (
         <div className="w-full space-y-8">
             {/* Controls */}
             <div className="flex flex-col md:flex-row gap-4 bg-slate-800/50 p-6 rounded-xl border border-slate-700">
                 <div className="flex-1">
-                    <label htmlFor="search" className="sr-only">Buscar projetos</label>
+                    <label htmlFor="search" className="sr-only">Search projects</label>
                     <input
                         type="text"
                         id="search"
-                        placeholder="Buscar por nome ou tecnologia..."
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Search by name or technology..."
+                        className="w-full bg-[#1a1a1a] border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -58,7 +71,7 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
                             : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
                             }`}
                     >
-                        Todos
+                        All
                     </button>
                     {allTags.map(tag => (
                         <button
@@ -81,14 +94,22 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
                     filteredProjects.map((project) => (
                         <a
                             key={project.slug}
-                            href={`${import.meta.env.BASE_URL}/projetos/${project.slug}`}
+                            href={`${import.meta.env.BASE_URL}/projects/${project.slug}`}
                             className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all group"
                         >
                             <div className="h-48 bg-slate-800 relative overflow-hidden">
-                                {/* Placeholder for image */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-slate-600 font-bold text-4xl group-hover:scale-105 transition-transform">
-                                    {project.data.title.charAt(0)}
-                                </div>
+                                {project.data.heroImage ? (
+                                    <img
+                                        src={getImagePath(project.data.heroImage) || ''}
+                                        alt={project.data.title}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    />
+                                ) : (
+                                    /* Placeholder for image */
+                                    <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-slate-600 font-bold text-4xl group-hover:scale-105 transition-transform">
+                                        {project.data.title.charAt(0)}
+                                    </div>
+                                )}
                             </div>
                             <div className="p-6">
                                 <div className="flex flex-wrap gap-2 mb-3">
@@ -109,7 +130,7 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
                     ))
                 ) : (
                     <div className="col-span-full py-20 text-center text-slate-500">
-                        Nenhum projeto encontrado para os filtros selecionados.
+                        No projects found matching the selected filters.
                     </div>
                 )}
             </div>

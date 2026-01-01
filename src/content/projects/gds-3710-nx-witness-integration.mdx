@@ -1,0 +1,100 @@
+---
+title: "Grandstream GDS3710 <> NX Witness Integration"
+description: "Python-based HTTP server integrating Grandstream GDS3710 with Nx Witness to trigger doorbell events."
+date: 2025-05-27
+tags: ["Python", "HTTP Server", "VMS", "Video Surveillance", "Systems Integration"]
+heroImage: "/portfolio/images/gds3710-meta-image.webp"
+featured: true
+githubUrl: "https://github.com/A3A-Engenharia-de-Sistemas/gds3710-wisenet-wave-integration"
+---
+
+In video surveillance environments, it is common for **video intercom systems and VMS platforms to operate in isolation**.  
+
+The **Grandstream GDS3710**, for instance, is typically handled through proprietary mobile applications or SIP-based softphones, while the VMS remains responsible only for video monitoring.
+
+This separation creates an operational gap: **intercom calls are not part of the VMS workflow**, forcing operators to switch tools and fragmenting situational awareness.
+
+From a systems perspective, this contradicts modern security architecture principles, which prioritize **convergence and centralized event handling**.
+
+---
+
+### The Problem
+
+Without native integration between the GDS3710 and **Nx Witness / Hanwha Wisenet Wave**:
+
+- Doorbell calls do not appear in the VMS timeline  
+- Operators must rely on external applications to handle intercom events  
+- Video context and intercom activity are split across systems  
+- Incident response becomes slower and less consistent  
+
+The lack of consolidation limits both operational efficiency and forensic traceability.
+
+---
+
+### My Approach
+
+I designed and implemented a **Python-based HTTP integration service** to bridge this gap.
+
+Instead of introducing additional client applications, my goal was to **centralize intercom handling directly inside the VMS**, allowing doorbell calls to be treated as native surveillance events.
+
+The solution listens for **HTTP notifications from the GDS3710** and translates them into **manual events in Nx Witness / Wisenet Wave**, fully linked to the relevant camera.
+
+This approach aligns intercom activity with existing VMS workflows, enabling operators to work from a single interface.
+
+---
+
+### How the Integration Works
+
+1. The service runs a lightweight HTTP server listening for POST requests from the GDS3710.
+2. Incoming notifications are parsed and validated.
+3. Only doorbell call events are processed.
+4. When required, the service authenticates against the Nx Witness REST API using JWT.
+5. A manual event is created and associated with the configured camera.
+6. The event becomes immediately visible in the VMS timeline.
+
+---
+
+### Key Technical Decisions
+
+#### Event-driven design  
+I used an event-driven approach based on HTTP notifications, avoiding polling mechanisms and ensuring low-latency processing.
+
+#### Lightweight and stateless service  
+The integration relies on Python’s built-in `http.server`, keeping the solution simple, auditable, and easy to deploy in LAN environments.
+
+#### Secure API interaction  
+Authentication with Nx Witness is handled via JWT tokens, with automatic renewal logic and sensitive configuration stored in environment variables.
+
+#### Explicit video correlation  
+Each event includes camera metadata, ensuring accurate timeline alignment and consistent playback behavior.
+
+---
+
+### Results
+
+This integration:
+
+- Centralized intercom events inside the VMS  
+- Eliminated dependency on separate intercom applications  
+- Enabled push notifications directly from the VMS  
+- Provided immediate access to live video during doorbell calls  
+- Improved response time and event traceability  
+
+Most importantly, it demonstrated how **custom API integrations can consolidate traditionally siloed security systems** into a single operational platform.
+
+---
+
+### Technologies Used
+
+- Python 3.8+
+- Built-in HTTP server (`http.server`)
+- REST API integration (Nx Witness / Wisenet Wave)
+- JWT-based authentication
+- Environment-based configuration (`python-dotenv`)
+
+---
+
+### Takeaway
+
+This project reflects my approach to systems integration:  
+**identify fragmentation, understand platform capabilities, and design focused solutions that improve operational coherence without adding unnecessary complexity**.

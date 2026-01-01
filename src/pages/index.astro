@@ -1,38 +1,38 @@
 ---
-import Layout from '../layouts/Layout.astro';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import Layout from "../layouts/Layout.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<Layout title="Home | Engenharia e Code" description="Portfolio de Engenharia de Computação focado em resolver problemas reais.">
+<Layout
+	title="Home | Engineering & Code"
+	description="Computer Engineering Portfolio focused on solving real problems."
+>
 	<section class="py-20 text-center">
-		<h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
-			Engenharia que Resolve.<br/>Web que Voa.
+		<img
+			src="/portfolio/images/luis-eduardo-ferreira-galvao-w-bg.png"
+			alt="Engineering & Code"
+			class="mx-auto mb-10 rounded-full w-40 h-40 grayscale"
+		/>
+		<h1 class="text-5xl md:text-5xl font-regular text-gray-400 mb-6">
+			I'm Eduardo, <span class="text-white">accelerating business</span>
+			<br /> with high performance solutions.
 		</h1>
 		<p class="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
-			Estudante de Engenharia da Computação construindo soluções de alta performance com automação inteligente e design estratégico.
+			Computer Engineering | Full-Stack Developer | SEO Specialist
 		</p>
 		<div class="flex justify-center gap-4">
-			<a href={`${base}/projetos`} class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-				Ver Projetos
+			<a
+				href={`${base}/projects`}
+				class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+			>
+				See Projects
 			</a>
-			<a href={`${base}/contato`} class="border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white font-medium py-3 px-6 rounded-lg transition-colors">
-				Fale Comigo
+			<a
+				href={`${base}/contact`}
+				class="border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white font-medium py-3 px-6 rounded-lg transition-colors"
+			>
+				Contact me
 			</a>
-		</div>
-	</section>
-
-	<section class="py-16 grid md:grid-cols-3 gap-8 text-center">
-		<div class="p-6 bg-slate-800/50 rounded-xl border border-slate-700">
-			<h3 class="text-xl font-bold text-white mb-2">Engenharia Web</h3>
-			<p class="text-slate-400">Desenvolvimento full-stack com foco em performance e SEO técnico.</p>
-		</div>
-		<div class="p-6 bg-slate-800/50 rounded-xl border border-slate-700">
-			<h3 class="text-xl font-bold text-white mb-2">Automação</h3>
-			<p class="text-slate-400">Scripts e ferramentas para otimizar fluxos de trabalho e eliminar tarefas repetitivas.</p>
-		</div>
-		<div class="p-6 bg-slate-800/50 rounded-xl border border-slate-700">
-			<h3 class="text-xl font-bold text-white mb-2">Soluções Reais</h3>
-			<p class="text-slate-400">Foco em entregar valor de negócio através de tecnologia pragmática.</p>
 		</div>
 	</section>
 </Layout>

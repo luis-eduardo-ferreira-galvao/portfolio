@@ -1,31 +1,25 @@
 ---
+import Credentials from "../../pages/credentials.astro";
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const navItems = [
-  { href: import.meta.env.BASE_URL, label: "Início" },
-  { href: `${base}/sobre`, label: "Sobre" },
-  { href: `${base}/projetos`, label: "Projetos" },
-  { href: `${base}/contato`, label: "Contato" },
+  { href: import.meta.env.BASE_URL, label: "Home" },
+  { href: `${base}/about`, label: "About" },
+  { href: `${base}/credentials`, label: "Credentials" },
+  { href: `${base}/projects`, label: "Projects" },
+  { href: `${base}/contact`, label: "Contact" },
 ];
 ---
 
-<header
-  class="sticky top-0 z-50 w-full backdrop-blur-lg bg-slate-900/80 border-b border-slate-800"
->
-  <div class="container mx-auto px-4 h-16 flex items-center justify-between">
-    <a
-      href={import.meta.env.BASE_URL}
-      class="text-xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent"
-    >
-      DevPortfolio
-    </a>
-
+<header class="sticky top-0 z-50 w-full backdrop-blur-lg bg-[#0d0d0d]/95">
+  <div class="container mx-auto px-4 h-16 flex items-center justify-center">
     <!-- Desktop Nav -->
     <nav class="hidden md:flex gap-6">
       {
         navItems.map((item) => (
           <a
             href={item.href}
-            class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+            class="text-md font-medium text-slate-300 hover:text-white transition-colors"
           >
             {item.label}
           </a>

@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProjectFilter from "../../components/islands/ProjectFilter";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const sortedProjects = projects.sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Layout
+	title="Projects | Engineering & Code"
+	description="My projects and case studies."
+>
+	<div class="max-w-6xl mx-auto">
+		<header class="mb-12 text-center">
+			<h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+				Projects & Cases
+			</h1>
+			<p class="text-slate-400 text-lg max-w-2xl mx-auto">
+				A selection of my most recent work, from deep technical
+				optimizations to intelligent automations.
+			</p>
+		</header>
+
+		<!-- React Island for Search/Filter -->
+		<ProjectFilter client:load projects={sortedProjects} />
+	</div>
+</Layout>
