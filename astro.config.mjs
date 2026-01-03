@@ -12,6 +12,12 @@ export default defineConfig({
   base: '/portfolio',
   integrations: [react(), mdx(), sitemap()],
 
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()]
   }

@@ -7,23 +7,69 @@ import "../styles/global.css";
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" class="dark scroll-smooth">
 	<head>
-		<SEOHead title={title} description={description} />
+		<SEOHead title={title} description={description} image={image} />
 	</head>
 	<body class="flex flex-col min-h-screen bg-[#0d0d0d] text-slate-100">
 		<Header />
 		<main
-			class="flex items-center justify-center container mx-auto min-h-[calc(100vh-4rem)] py-20"
+			class="flex flex-col justify-center container mx-auto min-h-[calc(100vh-4rem)] py-20"
 		>
 			<slot />
 		</main>
 		<Footer />
+
+		<!-- Page Load Transition Script -->
+		<script>
+			// Create the loader element but don't show it immediately
+			const loader = document.createElement("div");
+			loader.style.position = "fixed";
+			loader.style.top = "0";
+			loader.style.left = "0";
+			loader.style.width = "100%";
+			loader.style.height = "100%";
+			loader.style.backgroundColor = "#0d0d0d";
+			loader.style.zIndex = "9999";
+			loader.style.display = "flex";
+			loader.style.justifyContent = "center";
+			loader.style.alignItems = "center";
+			loader.style.transition = "opacity 0.3s ease-out";
+			loader.style.opacity = "0"; // Start invisible
+			loader.style.pointerEvents = "none"; // Don't block interaction initially
+			loader.innerHTML =
+				'<div class="w-12 h-12 border-4 border-slate-700 border-t-blue-500 rounded-full animate-spin"></div>';
+
+			document.body.appendChild(loader);
+
+			// Timer to trigger the loader ONLY if page takes longer than 300ms
+			const showLoaderTimer = setTimeout(() => {
+				loader.style.opacity = "1";
+				loader.style.pointerEvents = "all";
+			}, 300);
+
+			window.addEventListener("load", () => {
+				// Page loaded! Cancel the timer.
+				clearTimeout(showLoaderTimer);
+
+				// If it was already showing, fade it out
+				if (loader.style.opacity === "1") {
+					loader.style.opacity = "0";
+					setTimeout(() => {
+						loader.remove();
+					}, 300);
+				} else {
+					// It never visually appeared, just remove it instantly
+					loader.remove();
+				}
+			});
+		</script>
 	</body>
 </html>

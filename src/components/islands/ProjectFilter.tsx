@@ -36,20 +36,8 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
         });
     }, [projects, search, selectedTag]);
 
-    // Helper to process image path
-    const getImagePath = (path?: string) => {
-        if (!path) return null;
-        if (path.startsWith('public/')) {
-            return path.replace('public/', '/');
-        }
-        if (path.startsWith('/public/')) {
-            return path.replace('/public/', '/');
-        }
-        return path;
-    };
-
     return (
-        <div className="w-full space-y-8">
+        <div className="w-full space-y-8 p-4 md:p-10">
             {/* Controls */}
             <div className="flex flex-col md:flex-row gap-4 bg-slate-800/50 p-6 rounded-xl border border-slate-700">
                 <div className="flex-1">
@@ -97,12 +85,22 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
                             href={`${import.meta.env.BASE_URL}/projects/${project.slug}`}
                             className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all group"
                         >
-                            <div className="h-48 bg-slate-800 relative overflow-hidden">
+                            <div className="h-64 bg-slate-800 relative overflow-hidden">
                                 {project.data.heroImage ? (
                                     <img
-                                        src={getImagePath(project.data.heroImage) || ''}
+                                        src={project.data.heroImage}
                                         alt={project.data.title}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                        loading="lazy"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-0"
+                                        onLoad={(e) => {
+                                            e.currentTarget.style.opacity = '1';
+                                        }}
+                                        style={{ opacity: 0 }}
+                                        ref={(img) => {
+                                            if (img && img.complete) {
+                                                img.style.opacity = '1';
+                                            }
+                                        }}
                                     />
                                 ) : (
                                     /* Placeholder for image */

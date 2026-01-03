@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-interface Certificate {
+export interface Certificate {
     id: number;
     title: string;
     issuer: string;
@@ -10,114 +10,11 @@ interface Certificate {
     link?: string; // URL to verify
 }
 
-const certificates: Certificate[] = [
-    {
-        id: 1,
-        title: "Fortinet Certified Fundamentals in Cybersecurity (FCF)",
-        issuer: "Fortinet",
-        date: "2025",
-        description: "Certified in Fortinet Fundamentals in Cybersecurity, showcasing expertise in the fundamentals of cybersecurity.",
-        link: "#"
-    },
-    {
-        id: 2,
-        title: "Cyber Threat Management",
-        issuer: "Cisco Systems",
-        date: "2025",
-        description: "Certified in Cisco Cyber Threat Management, showcasing expertise in the fundamentals of cybersecurity.",
-        link: "#"
-    },
-    {
-        id: 3,
-        title: "Video Systems Camera Technical",
-        issuer: "Bosch Security Systems",
-        date: "2025",
-        description: "Certified in Bosch Video Systems Camera Technical, showcasing expertise in IP video surveillance systems.",
-        link: "#"
-    },
-    {
-        id: 4,
-        title: "Public Address PRAESENSA Technical",
-        issuer: "Bosch Security Systems",
-        date: "2025",
-        description: "Certified in Bosch Public Address PRAESENSA Technical, showcasing expertise in IP public address systems.",
-        link: "#"
-    },
-    {
-        id: 5,
-        title: "OMNEO Networking",
-        issuer: "Bosch Security Systems",
-        date: "2025",
-        description: "Certified in Bosch OMNEO Networking, showcasing expertise in IP networking systems.",
-        link: "#"
-    },
-    {
-        id: 6,
-        title: "Access Control & Biometrics",
-        issuer: "Suprema Inc.",
-        date: "2025",
-        description: "Certified in Suprema Access Control & Biometrics, showcasing expertise in Physical Access Control Systems.",
-        link: "#"
-    },
-    {
-        id: 7,
-        title: "Suprema Certified Integrator",
-        issuer: "Suprema Inc.",
-        date: "2025",
-        description: "Certified in Suprema Integrator Professional Certification, showcasing expertise in Physical Access Control Systems.",
-        link: "#"
-    },
-    {
-        id: 8,
-        title: "Introduction to Linux (LFS101)",
-        issuer: "Linux Foundation",
-        date: "2025",
-        description: "Certified in Introduction to Linux (LFS101), showcasing expertise in Linux operating systems.",
-        link: "#"
-    },
-    {
-        id: 9,
-        title: "Oracle Certified Foundations Associate",
-        issuer: "Oracle",
-        date: "2025",
-        description: "Certified in Oracle Certified Foundations Associate, showcasing expertise in Oracle databases.",
-        link: "#"
-    },
-    {
-        id: 10,
-        title: "Physical Network Topologies",
-        issuer: "Axis Communications",
-        date: "2025",
-        description: "Certified in Physical Network Topologies, showcasing expertise in network topologies.",
-        link: "#"
-    },
-    {
-        id: 11,
-        title: "AXIS Site Designer",
-        issuer: "Axis Communications",
-        date: "2025",
-        description: "Certified in Axis Site Designer, showcasing expertise in Axis camera systems.",
-        link: "#"
-    },
-    {
-        id: 12,
-        title: "SP3801 - Installing Premises Cabling Systems ACT I",
-        issuer: "CommScope",
-        date: "2025",
-        description: "Certified in SP3801 - Installing Premises Cabling Systems ACT I, showcasing expertise in Premises Cabling Systems.",
-        link: "#"
-    },
-    {
-        id: 13,
-        title: "SP3802 - Certifying and Troubleshooting Premises Cabling Systems ACT II",
-        issuer: "CommScope",
-        date: "2025",
-        description: "Certified in SP3802 - Certifying and Troubleshooting Premises Cabling Systems ACT II, showcasing expertise in Premises Cabling Systems.",
-        link: "#"
-    }
-];
+interface CertificatesSliderProps {
+    certificates: Certificate[];
+}
 
-export default function CertificatesSlider() {
+export default function CertificatesSlider({ certificates }: CertificatesSliderProps) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [touchStart, setTouchStart] = useState<number | null>(null);
     const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -252,20 +149,20 @@ export default function CertificatesSlider() {
     return (
         <div className="w-full text-slate-100 p-4 md:p-10">
             {/* Top Section */}
-            <div className="flex flex-col lg:flex-row gap-12 mb-20 lg:h-[300px]">
+            <div className="flex flex-col lg:flex-row gap-12 mb-20 lg:min-h-[300px]">
                 {/* Left: Title & Intro */}
                 <div className="flex-1 space-y-6">
-                    <h1 className="text-5xl md:text-7xl font-serif tracking-tight leading-none">
+                    <h1 className="text-5xl md:text-6xl font-serif tracking-tight leading-none">
                         <span className="block text-white">Credentials</span>
-                        <span className="block text-slate-500 italic">Verified Excellence</span>
+                        <span className="block text-slate-500 italic">Verified Competencies</span>
                     </h1>
                     <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-xl font-light">
-                        Credentials matter when they reinforce how you think and operate. My certifications reflect a commitment to continuous education and technical excellence, spanning programming, networking, infrastructure, digital security, artificial intelligence, and systems integration—supporting the design of scalable, resilient, and automation-ready environments.
+                        Credentials matter because they reinforce how you think and operate. My certifications reflect the commitment I have to continuous education, multidisciplinary knowledge and technical excellence, spanning programming, networking, infrastructure, digital security, artificial intelligence, and systems integration—supporting the design of scalable, resilient, and automation-ready environments.
                     </p>
                 </div>
 
                 {/* Right: Active Details */}
-                <div className="flex-1 flex flex-col items-end text-right justify-center space-y-6 lg:pl-10 relative">
+                <div className="flex-1 flex flex-col items-end text-right justify-start space-y-6 lg:pl-10 relative">
                     {/* Navigation - Absolute or part of this block */}
                     <div className="flex gap-4 mb-4">
                         <button
@@ -318,36 +215,53 @@ export default function CertificatesSlider() {
                         return (
                             <div
                                 key={cert.id}
-                                className="absolute bg-white text-slate-900 w-[300px] h-[220px] md:w-[500px] md:h-[350px] shadow-2xl rounded-sm p-8 flex flex-col justify-between select-none cursor-pointer border-l-8 border-l-blue-600"
+                                className={`absolute w-[300px] h-[220px] md:w-[500px] md:h-[350px] flex flex-col justify-between select-none cursor-pointer duration-500
+                                    ${cert.image ? '' : 'bg-white text-slate-900 shadow-2xl rounded-sm p-8 border-l-8 border-l-blue-600'}
+                                `}
                                 style={style as React.CSSProperties}
                                 onClick={() => {
                                     if (!isDragging) setActiveIndex(index);
                                 }}
                             >
-                                {/* Fake Certificate Design */}
-                                <div className="border-4 border-double border-slate-200 h-full p-6 relative">
-                                    <div className="absolute top-4 right-4 opacity-10">
-                                        <svg className="w-16 h-16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" /></svg>
+                                {/* Certificate Content */}
+                                {cert.image ? (
+                                    <div className="w-full h-full relative group">
+                                        <img
+                                            src={cert.image}
+                                            alt={cert.title}
+                                            loading="lazy"
+                                            className="w-full h-full object-contain drop-shadow-2xl opacity-0 transition-opacity duration-700 ease-out"
+                                            onLoad={(e) => {
+                                                e.currentTarget.classList.remove('opacity-0');
+                                            }}
+                                        />
                                     </div>
+                                ) : (
+                                    /* Placeholder Design */
+                                    <div className="border-4 border-double border-slate-200 h-full p-6 relative">
+                                        <div className="absolute top-4 right-4 opacity-10">
+                                            <svg className="w-16 h-16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" /></svg>
+                                        </div>
 
-                                    <div className="text-center space-y-4 mt-4">
-                                        <div className="uppercase tracking-widest text-xs font-serif text-slate-500">Certificate of Completion</div>
-                                        <h3 className="font-serif text-2xl md:text-3xl font-bold text-slate-800 leading-tight">{cert.title}</h3>
-                                        <div className="w-16 h-[2px] bg-slate-300 mx-auto my-4"></div>
-                                        <p className="text-sm text-slate-500">Presented to the holder for successful completion of the requirements.</p>
+                                        <div className="text-center space-y-4 mt-4">
+                                            <div className="uppercase tracking-widest text-xs font-serif text-slate-500">Certificate of Completion</div>
+                                            <h3 className="font-serif text-2xl md:text-3xl font-bold text-slate-800 leading-tight">{cert.title}</h3>
+                                            <div className="w-16 h-[2px] bg-slate-300 mx-auto my-4"></div>
+                                            <p className="text-sm text-slate-500">Presented to the holder for successful completion of the requirements.</p>
 
-                                        <div className="flex justify-between items-end mt-8 pt-8 px-4">
-                                            <div className="text-left">
-                                                <div className="w-24 h-[1px] bg-slate-400 mb-2"></div>
-                                                <div className="text-[10px] uppercase font-bold text-slate-400">Date: {cert.date}</div>
-                                            </div>
-                                            <div className="text-right">
-                                                <img src="/portfolio/favicon.svg" className="w-8 h-8 opacity-20 mb-2 ml-auto" alt="Logo" />
-                                                <div className="text-[10px] uppercase font-bold text-slate-400">{cert.issuer}</div>
+                                            <div className="flex justify-between items-end mt-8 pt-8 px-4">
+                                                <div className="text-left">
+                                                    <div className="w-24 h-[1px] bg-slate-400 mb-2"></div>
+                                                    <div className="text-[10px] uppercase font-bold text-slate-400">Date: {cert.date}</div>
+                                                </div>
+                                                <div className="text-right">
+                                                    <img src="/portfolio/favicon.svg" className="w-8 h-8 opacity-20 mb-2 ml-auto" alt="Logo" />
+                                                    <div className="text-[10px] uppercase font-bold text-slate-400">{cert.issuer}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         );
                     })}

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
 	const projects = await getCollection("projects");
@@ -23,6 +24,7 @@ const dateStr = project.data.date.toLocaleDateString("en-US", {
 <Layout
 	title={`${project.data.title} | Case Study`}
 	description={project.data.description}
+	image={project.data.ogImage}
 >
 	<div class="max-w-3xl mx-auto">
 		<a
@@ -54,6 +56,17 @@ const dateStr = project.data.date.toLocaleDateString("en-US", {
 				<span>•</span>
 				<span>{project.data.description}</span>
 			</div>
+
+			{
+				project.data.heroImage && (
+					<Image
+						src={project.data.heroImage}
+						alt={project.data.title}
+						class="w-full h-auto rounded-xl mt-8 mb-8 object-cover shadow-2xl transition-opacity duration-700 opacity-0"
+						onload="this.classList.remove('opacity-0')"
+					/>
+				)
+			}
 
 			{
 				(project.data.githubUrl || project.data.liveUrl) && (
