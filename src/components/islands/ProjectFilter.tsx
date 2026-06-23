@@ -13,9 +13,10 @@ interface Project {
 
 interface ProjectFilterProps {
     projects: Project[];
+    baseUrl?: string;
 }
 
-export default function ProjectFilter({ projects }: ProjectFilterProps) {
+export default function ProjectFilter({ projects, baseUrl = "/projects" }: ProjectFilterProps) {
     const [search, setSearch] = useState('');
     const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
@@ -82,7 +83,7 @@ export default function ProjectFilter({ projects }: ProjectFilterProps) {
                     filteredProjects.map((project) => (
                         <a
                             key={project.slug}
-                            href={`${import.meta.env.BASE_URL}/projects/${project.slug}`}
+                            href={`${import.meta.env.BASE_URL}${baseUrl}/${project.slug}`.replace(/\/\//g, '/')}
                             className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all group"
                         >
                             <div className="h-64 bg-slate-800 relative overflow-hidden">

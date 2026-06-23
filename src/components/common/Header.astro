@@ -1,13 +1,18 @@
 ---
-import Credentials from "../../pages/credentials.astro";
+import LanguagePicker from "./LanguagePicker.astro";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../i18n/utils';
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 const navItems = [
-  { href: import.meta.env.BASE_URL, label: "Home" },
-  { href: `${base}/about`, label: "About" },
-  { href: `${base}/credentials`, label: "Credentials" },
-  { href: `${base}/projects`, label: "Projects" },
-  { href: `${base}/contact`, label: "Contact" },
+  { href: translatePath('/'), label: t('nav.home') },
+  { href: translatePath('/about'), label: t('nav.about') },
+  { href: translatePath('/credentials'), label: t('nav.credentials') },
+  { href: translatePath('/projects'), label: t('nav.projects') },
+  { href: translatePath('/contact'), label: t('nav.contact') },
 ];
 ---
 
@@ -27,24 +32,28 @@ const navItems = [
       }
     </nav>
 
-    <!-- Mobile Menu Button (Placeholder for now) -->
-    <button class="md:hidden text-slate-300">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        ><line x1="4" x2="20" y1="12" y2="12"></line><line
-          x1="4"
-          x2="20"
-          y1="6"
-          y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg
-      >
-    </button>
+    <div class="absolute right-4 md:right-8 flex items-center gap-4">
+      <LanguagePicker />
+      
+      <!-- Mobile Menu Button (Placeholder for now) -->
+      <button class="md:hidden text-slate-300">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><line x1="4" x2="20" y1="12" y2="12"></line><line
+            x1="4"
+            x2="20"
+            y1="6"
+            y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg
+        >
+      </button>
+    </div>
   </div>
 </header>

@@ -1,13 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+import Layout from "../../../layouts/Layout.astro";
 import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
 	const allProjects = await getCollection("projects");
-	const enProjects = allProjects.filter(p => p.id.startsWith('en/'));
-	return enProjects.map((project) => {
-		const slug = project.slug.replace(/^en\//, '');
+	const ptProjects = allProjects.filter(p => p.id.startsWith('pt/'));
+	return ptProjects.map((project) => {
+		const slug = project.slug.replace(/^pt\//, '');
 		return {
 			params: { slug },
 			props: { project },
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await project.render();
 
-const dateStr = project.data.date.toLocaleDateString("en-US", {
+const dateStr = project.data.date.toLocaleDateString("pt-BR", {
 	year: "numeric",
 	month: "long",
 	day: "numeric",
@@ -26,16 +26,16 @@ const dateStr = project.data.date.toLocaleDateString("en-US", {
 ---
 
 <Layout
-	title={`${project.data.title} | Case Study`}
+	title={`${project.data.title} | Estudo de Caso`}
 	description={project.data.description}
 	image={project.data.ogImage}
 >
 	<div class="max-w-3xl mx-auto">
 		<a
-			href={`${import.meta.env.BASE_URL}/projects`}
+			href={`${import.meta.env.BASE_URL}/pt/projects`}
 			class="inline-flex items-center text-sm text-slate-400 hover:text-white mb-6 transition-colors"
 		>
-			← Back to Projects
+			← Voltar para Projetos
 		</a>
 
 		<header class="mb-10">
@@ -81,7 +81,7 @@ const dateStr = project.data.date.toLocaleDateString("en-US", {
 								target="_blank"
 								class="text-white bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
 							>
-								View code on GitHub
+								Ver código no GitHub
 							</a>
 						)}
 					</div>

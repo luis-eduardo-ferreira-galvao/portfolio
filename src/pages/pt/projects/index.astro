@@ -1,10 +1,10 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import ProjectFilter from "../../components/islands/ProjectFilter";
+import Layout from "../../../layouts/Layout.astro";
+import ProjectFilter from "../../../components/islands/ProjectFilter";
 import { getCollection } from "astro:content";
 
 const allProjects = await getCollection("projects");
-const projects = allProjects.filter(p => p.id.startsWith('en/'));
+const projects = allProjects.filter(p => p.id.startsWith('pt/'));
 const sortedProjects = projects.sort(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
@@ -23,7 +23,7 @@ const optimizedProjects = await Promise.all(
 		}
 		return {
 			...project,
-			slug: project.slug.replace(/^en\//, ''),
+			slug: project.slug.replace(/^pt\//, ''),
 			data: {
 				...project.data,
 				heroImage: heroImageSrc,
@@ -34,21 +34,21 @@ const optimizedProjects = await Promise.all(
 ---
 
 <Layout
-	title="Projects | Engineering & Code"
-	description="My projects and case studies."
+	title="Projetos | Engenharia & Código"
+	description="Meus projetos e estudos de caso."
 >
 	<div class="w-full px-4">
 		<header class="mb-12 text-center">
 			<h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
-				Projects & Cases
+				Projetos & Casos
 			</h1>
 			<p class="text-slate-400 text-lg max-w-2xl mx-auto">
-				A selection of my most recent work, from deep technical
-				optimizations to intelligent automations.
+				Uma seleção do meu trabalho mais recente, desde otimizações técnicas profundas
+				até automações inteligentes.
 			</p>
 		</header>
 
 		<!-- React Island for Search/Filter -->
-		<ProjectFilter client:load projects={optimizedProjects} />
+		<ProjectFilter client:load projects={optimizedProjects} baseUrl="/pt/projects" />
 	</div>
 </Layout>

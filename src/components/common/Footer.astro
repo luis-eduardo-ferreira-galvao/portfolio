@@ -1,10 +1,14 @@
 ---
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
 <footer class="bg-black border-t border-slate-800 py-8 mt-auto">
   <div class="container mx-auto px-4 text-center">
-    <p class="text-slate-400 text-sm">Link to my socials</p>
+    <p class="text-slate-400 text-sm">{t('footer.socials')}</p>
     <div class="flex justify-center gap-4 mt-4">
       <a
         href="https://github.com"
